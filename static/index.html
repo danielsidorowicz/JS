@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThreeJS</title>
+    <script src="libs/jquery.js"></script>
+    <style>
+        a {
+            height: 50px;
+            width: 50px;
+            border: 1px black solid;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main" id="main"></div>
+    <script>
+        $(window).on("load", function () {
+            const data = JSON.stringify({
+                pliki: []
+            })
+            const options = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: data
+            }
+
+            fetch("/main", options)
+                .then(response => response.json()) // konwersja na obiekt json, jeśli konieczne
+                .then(data => {
+                    console.log(data)
+                    odpowiedz = JSON.parse(data);
+                    console.log(odpowiedz.length);
+                    for (let i in odpowiedz) {
+
+                        let anchor = $("<a>")
+                        $(anchor).attr()
+                        $('#main').append(anchor)
+                    }
+
+                })
+
+        })
+    </script>
+</body>
+
+</html>
