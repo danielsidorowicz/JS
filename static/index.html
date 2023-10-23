@@ -9,8 +9,6 @@
     <script src="libs/jquery.js"></script>
     <style>
         a {
-            height: 50px;
-            width: 50px;
             border: 1px black solid;
         }
     </style>
@@ -39,10 +37,13 @@
                     odpowiedz = JSON.parse(data);
                     console.log(odpowiedz.length);
                     for (let i in odpowiedz) {
-
+                        i++
+                        let sciezka = "cwiczenia/cw0" + i + ".html"
                         let anchor = $("<a>")
-                        $(anchor).attr()
+                        $(anchor).append("cw" + i)
+                        $(anchor).attr("href", sciezka)
                         $('#main').append(anchor)
+                        $('#main').append("<br>")
                     }
 
                 })
