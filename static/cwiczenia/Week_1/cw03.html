@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../libs/three.js"></script>
+    <script src="../../libs/jquery.js"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        button {
+            width: 200px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="bt1" class="bt1" onclick="bt1()">Cube</button>
+    <button id="bt2" class="bt2" onclick="bt2()">Sphere</button>
+    <button id="bt3" class="bt3" onclick="bt3()">Cylinder</button>
+    <button id="bt4" class="bt4" onclick="bt4()">Cone</button>
+    <div id="root"></div>
+    <script>
+        let bt1_click = 0
+        let bt2_click = 0
+        let bt3_click = 0
+        let bt4_click = 0
+        const scene = new THREE.Scene();
+
+        const camera = new THREE.PerspectiveCamera(
+            45, // kąt patrzenia kamery (FOV - field of view)
+            window.innerWidth / window.innerHeight, // proporcje widoku, powinny odpowiadać proporcjom ekranu przeglądarki użytkownika
+            0.1, // minimalna renderowana odległość
+            10000 // maksymalna renderowana odległość od kamery
+        );
+
+        const renderer = new THREE.WebGLRenderer();
+        const axes = new THREE.AxesHelper(1000)
+        scene.add(axes)
+
+        renderer.setClearColor(0xFFFFFF);
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        document.getElementById("root").appendChild(renderer.domElement);
+
+        camera.position.set(200, 200, 200)
+        camera.lookAt(scene.position)
+
+        const geometry = new THREE.BoxGeometry(100, 100, 100, 2, 2, 2);
+        const material = new THREE.MeshBasicMaterial({
+            color: 0x8888ff,
+            side: THREE.DoubleSide,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.5
+        });
+        const cube = new THREE.Mesh(geometry, material);
+        cube.position.set(50, 50, 50)
+
+        const geometry2 = new THREE.SphereGeometry(50, 20, 20);
+        const material2 = new THREE.MeshBasicMaterial({
+            color: 0xFF0000,
+            side: THREE.DoubleSide,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.5
+        });
+        const sphere = new THREE.Mesh(geometry2, material2);
+        sphere.position.set(50, 50, 50)
+
+        const geometry3 = new THREE.CylinderGeometry(50, 50, 100, 10);
+        const material3 = new THREE.MeshBasicMaterial({
+            color: 0x00FF00,
+            side: THREE.DoubleSide,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.5
+        });
+        const cylinder = new THREE.Mesh(geometry3, material3);
+        cylinder.position.set(50, 50, 50)
+
+        const geometry4 = new THREE.ConeGeometry(50, 100, 25);
+        const material4 = new THREE.MeshBasicMaterial({
+            color: 0xFF00FF,
+            side: THREE.DoubleSide,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.5
+        });
+        const cone = new THREE.Mesh(geometry4, material4);
+        cone.position.set(50, 50, 50)
+
+        function bt1() {
+            if (bt1_click % 2 == 0) {
+                scene.add(cube);
+                document.getElementById('bt1').innerText = "dodano"
+            } else {
+                scene.remove(cube);
+                document.getElementById('bt1').innerText = "Cube"
+            }
+            bt1_click++
+
+        }
+
+        function bt2() {
+            if (bt2_click % 2 == 0) {
+                scene.add(sphere);
+                document.getElementById('bt2').innerText = "dodano"
+            } else {
+                scene.remove(sphere);
+                document.getElementById('bt2').innerText = "Sphere"
+            }
+            bt2_click++
+        }
+
+        function bt3() {
+            if (bt3_click % 2 == 0) {
+                scene.add(cylinder);
+                document.getElementById('bt3').innerText = "dodano"
+            } else {
+                scene.remove(cylinder);
+                document.getElementById('bt3').innerText = "Cylinder"
+            }
+            bt3_click++
+        }
+
+        function bt4() {
+            if (bt4_click % 2 == 0) {
+                scene.add(cone);
+                document.getElementById('bt4').innerText = "dodano"
+            } else {
+                scene.remove(cone);
+                document.getElementById('bt4').innerText = "Cone"
+            }
+            bt4_click++
+        }
+
+
+        function render() {
+            requestAnimationFrame(render);
+            console.log("render leci")
+            renderer.render(scene, camera);
+        }
+        render();
+
+    </script>
+</body>
+
+</html>

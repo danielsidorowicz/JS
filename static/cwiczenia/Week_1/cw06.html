@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../libs/three.js"></script>
+    <script src="../../libs/jquery.js"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        input {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="range" name="size1" id="size1" min="1" max="10" oninput="size1()" value="1">
+    <input type="range" name="size2" id="size2" min="1" max="10" oninput="size1()" value="1" style="top: 20px;">
+    <input type="range" name="size3" id="size3" min="1" max="10" oninput="size1()" value="1" style="top: 40px;">
+    <div id="root"></div>
+    <script>
+        let x = 1
+        let y = 0
+        let z = 0
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(
+            45, // kąt patrzenia kamery (FOV - field of view)
+            window.innerWidth / window.innerHeight, // proporcje widoku, powinny odpowiadać proporcjom ekranu przeglądarki użytkownika
+            0.1, // minimalna renderowana odległość
+            10000 // maksymalna renderowana odległość od kamery
+        );
+
+        const renderer = new THREE.WebGLRenderer();
+        const axes = new THREE.AxesHelper(1000)
+        scene.add(axes)
+
+        renderer.setClearColor(0xFFFFFF);
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        document.getElementById("root").appendChild(renderer.domElement);
+
+        camera.position.set(200, 200, 200)
+        camera.lookAt(scene.position)
+
+        const geometry = new THREE.BoxGeometry(100, 100, 100);
+        const material = new THREE.MeshBasicMaterial({
+            color: 0x8888ff,
+            side: THREE.DoubleSide,
+            wireframe: false,
+            transparent: true,
+            opacity: 0.5
+        });
+        const cube = new THREE.Mesh(geometry, material);
+        cube.position.set(0, 0, 0)
+        scene.add(cube);
+
+
+        function size1() {
+            x = document.getElementById("size1").value
+            y = document.getElementById("size2").value
+            z = document.getElementById("size3").value
+            console.log(x, y, z);
+            cube.scale.set(x, y, z)
+        }
+
+        function render() {
+            requestAnimationFrame(render);
+            console.log("render leci")
+            renderer.render(scene, camera);
+        }
+        render();
+
+    </script>
+</body>
+
+</html>

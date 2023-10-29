@@ -10,13 +10,25 @@
     <style>
         a {
             border: 1px black solid;
+            border-radius: 5px;
+            text-decoration: none;
+            color: gray;
+            font-size: 2em;
+            margin-right: 5px;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="main" id="main"></div>
+    <div class="main" id="main">
+        <div class="Week1" id="Week1">
+            <h1>Week 1</h1>
+        </div>
+        <div class="Week2" id="Week2">
+            <h1>Week 2</h1>
+        </div>
+    </div>
     <script>
         $(window).on("load", function () {
             const data = JSON.stringify({
@@ -35,20 +47,30 @@
                 .then(data => {
                     console.log(data)
                     odpowiedz = JSON.parse(data);
-                    console.log(odpowiedz.length);
-                    for (let i in odpowiedz) {
+                    console.log(odpowiedz);
+                    week1_cw = odpowiedz["Week_1"]
+                    week2_cw = odpowiedz["Week_2"]
+                    console.log(week1_cw, week2_cw);
+                    for (let i in week1_cw) {
                         i++
-                        let sciezka = "cwiczenia/cw0" + i + ".html"
+                        let sciezka = "cwiczenia/Week_1/cw0" + i + ".html"
                         let anchor = $("<a>")
                         $(anchor).append("cw" + i)
                         $(anchor).attr("href", sciezka)
-                        $('#main').append(anchor)
-                        $('#main').append("<br>")
+                        $('#Week1').append(anchor)
                     }
-
+                    $('#main').append("<br>")
+                    for (let i in week2_cw) {
+                        i++
+                        let sciezka = "cwiczenia/Week_2/cw0" + i + ".html"
+                        let anchor = $("<a>")
+                        $(anchor).append("cw" + i)
+                        $(anchor).attr("href", sciezka)
+                        $('#Week2').append(anchor)
+                    }
                 })
-
         })
+
     </script>
 </body>
 
