@@ -28,6 +28,12 @@
         <div class="Week2" id="Week2">
             <h1>Week 2</h1>
         </div>
+        <div class="Week3" id="Week3">
+            <h1>NA SPRAWDZIAN</h1>
+        </div>
+        <div class="Week4" id="Week4">
+            <h1>NA SPRAWDZIAN 2</h1>
+        </div>
     </div>
     <script>
         $(window).on("load", function () {
@@ -50,6 +56,8 @@
                     console.log(odpowiedz);
                     week1_cw = odpowiedz["Week_1"]
                     week2_cw = odpowiedz["Week_2"]
+                    week3_cw = odpowiedz["Week_3"]
+                    week4_cw = odpowiedz["Week_4"]
                     console.log(week1_cw, week2_cw);
                     for (let i in week1_cw) {
                         i++
@@ -67,6 +75,24 @@
                         $(anchor).append("cw" + i)
                         $(anchor).attr("href", sciezka)
                         $('#Week2').append(anchor)
+                    }
+                    $('#main').append("<br>")
+                    for (let i in week3_cw) {
+                        i++
+                        let sciezka = "cwiczenia/Week_3/cw0" + i + ".html"
+                        let anchor = $("<a>")
+                        $(anchor).append("cw" + i)
+                        $(anchor).attr("href", sciezka)
+                        $('#Week3').append(anchor)
+                    }
+                    $('#main').append("<br>")
+                    for (let i in week4_cw) {
+                        i++
+                        let sciezka = "cwiczenia/Week_4/cw0" + i + ".html"
+                        let anchor = $("<a>")
+                        $(anchor).append("cw" + i)
+                        $(anchor).attr("href", sciezka)
+                        $('#Week4').append(anchor)
                     }
                 })
         })
